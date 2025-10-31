@@ -1,0 +1,144 @@
+[
+  {
+    "name": "Free",
+    "price": 0,
+    "popular": false,
+    "description": "Try Hexa in your browser",
+    "features": [
+      "Mock AI responses",
+      "Local AI (Transformers.js)",
+      "Syntax highlighting",
+      "Dark/light themes",
+      "Basic code generation",
+      "Community support",
+      "No credit card required"
+    ],
+    "checkoutUrl": null,
+    "color": "gray",
+    "metadata": {
+      "tier": "free",
+      "tier_level": 0,
+      "models": "mock,transformers",
+      "requests_per_month": 0,
+      "rate_limit": "none",
+      "support": "community",
+      "api_access": false,
+      "workspaces": 1
+    }
+  },
+  {
+    "name": "Starter",
+    "price": 20,
+    "popular": false,
+    "description": "Cloud AI for hobbyists",
+    "features": [
+      "Everything in Free",
+      "GPT-4o access",
+      "Claude Haiku 4.5 access",
+      "500 requests/month",
+      "Email support (48hr)"
+    ],
+    "checkoutUrl": "stripe:starter",
+    "color": "gray",
+    "metadata": {
+      "tier": "starter",
+      "tier_level": 1,
+      "models": "gpt-4o,claude-haiku-4.5",
+      "requests_per_month": 500,
+      "rate_limit": "500_per_month",
+      "support": "email_48h",
+      "api_access": false,
+      "workspaces": 1
+    }
+  },
+  {
+    "name": "Pro",
+    "price": 80,
+    "popular": true,
+    "description": "Advanced AI for professionals",
+    "features": [
+      "Everything in Starter",
+      "GPT-5 access",
+      "Claude Sonnet 4.5 access",
+      "5,000 requests/month",
+      "Fast 2-3 second responses",
+      "Priority email support (24hr)",
+      "Early access to features"
+    ],
+    "checkoutUrl": "stripe:pro",
+    "color": "electric-teal",
+    "metadata": {
+      "tier": "pro",
+      "tier_level": 2,
+      "models": "gpt-5,claude-sonnet-4.5",
+      "requests_per_month": 5000,
+      "rate_limit": "5000_per_month",
+      "support": "priority_email_24h",
+      "api_access": false,
+      "workspaces": 1,
+      "early_access": true
+    }
+  },
+  {
+    "name": "Elite",
+    "price": 300,
+    "popular": false,
+    "description": "Maximum power for experts",
+    "features": [
+      "Everything in Pro",
+      "GPT-5 + Claude Opus 4.1",
+      "25,000 requests/month",
+      "No rate limits",
+      "Priority support (6hr)",
+      "API access",
+      "Multiple workspaces"
+    ],
+    "checkoutUrl": "stripe:business",
+    "color": "cyber-violet",
+    "metadata": {
+      "tier": "elite",
+      "tier_level": 3,
+      "models": "gpt-5,claude-opus-4.1",
+      "requests_per_month": 25000,
+      "rate_limit": "none",
+      "support": "priority_6h",
+      "api_access": true,
+      "workspaces": 5,
+      "early_access": true
+    }
+  },
+  {
+    "name": "Enterprise",
+    "price": null,
+    "popular": false,
+    "description": "Custom solutions for organizations",
+    "features": [
+      "Everything in Elite",
+      "Unlimited requests",
+      "Team seats & collaboration",
+      "SSO & SAML authentication",
+      "Custom models & fine-tuning",
+      "On-premise deployment",
+      "SLA guarantees (99.9% uptime)",
+      "Dedicated account manager",
+      "24/7 priority phone support"
+    ],
+    "checkoutUrl": "contact",
+    "color": "cyber-violet",
+    "metadata": {
+      "tier": "enterprise",
+      "tier_level": 4,
+      "models": "all,custom",
+      "requests_per_month": -1,
+      "rate_limit": "none",
+      "support": "dedicated_24_7",
+      "api_access": true,
+      "workspaces": -1,
+      "sso": true,
+      "on_premise": true,
+      "sla": "99.9",
+      "custom_models": true,
+      "early_access": true
+    }
+  }
+]

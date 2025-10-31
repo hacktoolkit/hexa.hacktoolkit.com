@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verify Transformers.js Loading</title>
+    <style>
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #0D0D0D;
+            color: #F5F5F5;
+        }
+        h1 { color: #00F5D4; }
+        .step {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .step h2 {
+            color: #00F5D4;
+            margin-top: 0;
+        }
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+        .checklist li {
+            padding: 10px;
+            margin: 5px 0;
+            background: #2a2a2a;
+            border-left: 3px solid #7F00FF;
+        }
+        .checklist li:before {
+            content: "☐ ";
+            color: #00F5D4;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        code {
+            background: #2a2a2a;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #00F5D4;
+        }
+        .console-log {
+            background: #000;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 12px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .success { color: #00F5D4; }
+        .info { color: #7F00FF; }
+        .error { color: #ff5555; }
+    </style>
+</head>
+<body>
+    <h1>🤖 How to Verify Transformers.js is Loading</h1>
+
+    <div class="step">
+        <h2>Step 1: Open Browser DevTools</h2>
+        <ul class="checklist">
+            <li>Mac: <code>Cmd + Option + I</code></li>
+            <li>Windows/Linux: <code>F12</code> or <code>Ctrl + Shift + I</code></li>
+            <li>Or right-click → Inspect</li>
+        </ul>
+    </div>
+
+    <div class="step">
+        <h2>Step 2: Open the Console Tab</h2>
+        <p>Click on the "Console" tab in DevTools</p>
+        <p>You'll see logs from the application here</p>
+    </div>
+
+    <div class="step">
+        <h2>Step 3: Switch to Transformers Provider</h2>
+        <ul class="checklist">
+            <li>Press <code>⌘+K</code> (Mac) or <code>Ctrl+K</code> (Windows/Linux)</li>
+            <li>Click on the <strong>Transformers</strong> option</li>
+            <li>Watch the console immediately</li>
+        </ul>
+    </div>
+
+    <div class="step">
+        <h2>Step 4: Watch for These Console Messages</h2>
+
+        <h3>✅ SUCCESS - Transformers.js is loading:</h3>
+        <div class="console-log">
+            <div class="info">🔧 AI Config updated: { provider: 'transformers' }</div>
+            <div class="info">🚀 Initializing AI with provider: transformers</div>
+            <div class="success">🤖 Initializing Transformers.js model...</div>
+        </div>
+
+        <p>If you see these messages, Transformers.js <strong>IS LOADING!</strong></p>
+
+        <h3>⚠️ If you see errors:</h3>
+        <div class="console-log">
+            <div class="error">❌ Failed to initialize model: [error details]</div>
+        </div>
+        <p>This means something went wrong. Check the error message.</p>
+    </div>
+
+    <div class="step">
+        <h2>Step 5: Monitor Network Activity</h2>
+        <ul class="checklist">
+            <li>Click the <strong>Network</strong> tab in DevTools</li>
+            <li>In the filter box, type: <code>huggingface</code></li>
+            <li>You should see files downloading from <code>cdn.jsdelivr.net</code> or <code>huggingface.co</code></li>
+            <li>Look for files like: <code>onnx</code>, <code>model.json</code>, <code>tokenizer.json</code></li>
+        </ul>
+
+        <h3>What you should see:</h3>
+        <ul>
+            <li>Multiple requests to HuggingFace CDN</li>
+            <li>File sizes: 50-100MB each</li>
+            <li>Total: ~250MB download</li>
+            <li>Status: 200 (success)</li>
+        </ul>
+    </div>
+
+    <div class="step">
+        <h2>Step 6: Wait for Completion</h2>
+
+        <h3>During loading (2-5 minutes):</h3>
+        <div class="console-log">
+            <div class="info">Status indicator shows: 🔄 Loading model...</div>
+        </div>
+
+        <h3>When complete:</h3>
+        <div class="console-log">
+            <div class="success">✅ Model initialized successfully</div>
+            <div class="info">Status indicator shows: 🤖 AI Ready</div>
+        </div>
+    </div>
+
+    <div class="step">
+        <h2>Step 7: Test AI Generation</h2>
+        <ul class="checklist">
+            <li>Wait for status: <code>🤖 AI Ready</code></li>
+            <li>Type a message: "Write a fibonacci function"</li>
+            <li>Press Enter</li>
+            <li>Watch the console</li>
+        </ul>
+
+        <h3>Console output when using Transformers.js:</h3>
+        <div class="console-log">
+            <div class="info">💬 [AI API] Generating response with provider: transformers</div>
+            <div class="info">📝 [AI API] User message: "Write a fibonacci function"</div>
+            <div class="success">🤖 [AI API] Routing to Transformers.js...</div>
+            <div>(wait 2-5 seconds...)</div>
+            <div class="success">✅ [AI API] Transformers.js response received</div>
+        </div>
+    </div>
+
+    <div class="step">
+        <h2>🚨 Common Issues</h2>
+
+        <h3>Issue: No console messages appear</h3>
+        <p><strong>Solution:</strong> Make sure Console tab is open BEFORE switching providers</p>
+
+        <h3>Issue: "Failed to fetch" or network errors</h3>
+        <p><strong>Causes:</strong></p>
+        <ul>
+            <li>Firewall blocking HuggingFace CDN</li>
+            <li>No internet connection</li>
+            <li>Corporate proxy blocking downloads</li>
+        </ul>
+        <p><strong>Solution:</strong> Check internet connection, try different network</p>
+
+        <h3>Issue: Loading forever, no progress</h3>
+        <p><strong>Solution:</strong></p>
+        <ul>
+            <li>Check Network tab - are files downloading?</li>
+            <li>Refresh page and try again</li>
+            <li>Try different browser (Chrome/Edge recommended)</li>
+        </ul>
+
+        <h3>Issue: Model loads but generation fails</h3>
+        <p><strong>Solution:</strong> Check console for specific error, may need to restart browser</p>
+    </div>
+
+    <div class="step">
+        <h2>✅ Success Checklist</h2>
+        <ul class="checklist">
+            <li>Console shows "🤖 Initializing Transformers.js model..."</li>
+            <li>Network tab shows downloads from HuggingFace</li>
+            <li>~250MB total downloaded</li>
+            <li>Console shows "✅ Model initialized successfully"</li>
+            <li>Status indicator shows "🤖 AI Ready"</li>
+            <li>Test message shows "🤖 [AI API] Routing to Transformers.js..."</li>
+            <li>AI generates code (takes 2-5 seconds)</li>
+        </ul>
+    </div>
+
+    <div class="step">
+        <h2>📊 Expected Timeline</h2>
+        <ul>
+            <li><strong>0 sec:</strong> Click Transformers provider</li>
+            <li><strong>0-2 sec:</strong> Console shows initialization message</li>
+            <li><strong>2-10 sec:</strong> Model metadata downloads</li>
+            <li><strong>10 sec - 5 min:</strong> Model weights download (~250MB)</li>
+            <li><strong>Final:</strong> "✅ Model initialized successfully"</li>
+        </ul>
+    </div>
+
+    <div class="step">
+        <h2>🔍 Quick Debug Commands</h2>
+        <p>Paste these in the browser console to check status:</p>
+
+        <h3>Check current provider:</h3>
+        <div class="console-log">
+            <code>import('@/lib/aiApi').then(m => console.log('Current provider:', m.getCurrentProvider()))</code>
+        </div>
+
+        <h3>Check AI status:</h3>
+        <div class="console-log">
+            <code>import('@/lib/aiApi').then(m => console.log('AI Status:', m.getAIStatus()))</code>
+        </div>
+    </div>
+
+</body>
+</html>
