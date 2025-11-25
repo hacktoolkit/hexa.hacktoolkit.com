@@ -6,6 +6,7 @@ import ChatPanel from '@/components/ChatPanel'
 import CodeEditor from '@/components/CodeEditor'
 import ProviderSwitcher from '@/components/ProviderSwitcher'
 import PricingModal from '@/components/PricingModal'
+import CreditsModal from '@/components/CreditsModal'
 import { useTheme } from '@/lib/useTheme'
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
   const [language, setLanguage] = useState('python')
   const [showCommandPalette, setShowCommandPalette] = useState(false)
   const [showPricingModal, setShowPricingModal] = useState(false)
+  const [showCreditsModal, setShowCreditsModal] = useState(false)
 
   useEffect(() => {
     // Keyboard shortcut for command palette (Cmd+K or Ctrl+K)
@@ -26,6 +28,7 @@ export default function Home() {
       if (e.key === 'Escape') {
         setShowCommandPalette(false)
         setShowPricingModal(false)
+        setShowCreditsModal(false)
       }
     }
 
@@ -47,7 +50,10 @@ export default function Home() {
       </Head>
 
       <div className="flex flex-col h-screen">
-        <Header onUpgradeClick={() => setShowPricingModal(true)} />
+        <Header
+          onUpgradeClick={() => setShowPricingModal(true)}
+          onBuyCreditsClick={() => setShowCreditsModal(true)}
+        />
 
         <main className="flex-1 overflow-hidden">
           <div className="h-full flex flex-col lg:flex-row">
@@ -140,6 +146,12 @@ export default function Home() {
         <PricingModal
           isOpen={showPricingModal}
           onClose={() => setShowPricingModal(false)}
+        />
+
+        {/* Credits Modal */}
+        <CreditsModal
+          isOpen={showCreditsModal}
+          onClose={() => setShowCreditsModal(false)}
         />
       </div>
     </>
