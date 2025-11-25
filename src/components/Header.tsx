@@ -3,9 +3,10 @@ import { useTheme } from '@/lib/useTheme'
 
 interface HeaderProps {
   onUpgradeClick?: () => void
+  onBuyCreditsClick?: () => void
 }
 
-const Header: React.FC<HeaderProps> = ({ onUpgradeClick }) => {
+const Header: React.FC<HeaderProps> = ({ onUpgradeClick, onBuyCreditsClick }) => {
   const { theme, toggleTheme, mounted } = useTheme()
 
   return (
@@ -28,8 +29,16 @@ const Header: React.FC<HeaderProps> = ({ onUpgradeClick }) => {
           </p>
         </div>
 
-        {/* Right Side - Upgrade Button + Theme Toggle */}
+        {/* Right Side - Upgrade Button + Buy Credits + Theme Toggle */}
         <div className="flex items-center space-x-3">
+          {onBuyCreditsClick && (
+            <button
+              onClick={onBuyCreditsClick}
+              className="px-4 py-2 border-2 border-electric-teal text-electric-teal font-mono font-semibold rounded-lg hover:bg-electric-teal hover:text-space-black transition-colors duration-200"
+            >
+              Buy Credits
+            </button>
+          )}
           {onUpgradeClick && (
             <button
               onClick={onUpgradeClick}

@@ -1,0 +1,44 @@
+[
+  {
+    "credits": 50,
+    "price": 5,
+    "bonus": 0,
+    "popular": false,
+    "checkoutKey": "credits_50"
+  },
+  {
+    "credits": 120,
+    "price": 10,
+    "bonus": 20,
+    "popular": false,
+    "checkoutKey": "credits_120"
+  },
+  {
+    "credits": 200,
+    "price": 15,
+    "bonus": 50,
+    "popular": false,
+    "checkoutKey": "credits_200"
+  },
+  {
+    "credits": 300,
+    "price": 20,
+    "bonus": 100,
+    "popular": true,
+    "checkoutKey": "credits_300"
+  },
+  {
+    "credits": 500,
+    "price": 25,
+    "bonus": 250,
+    "popular": false,
+    "checkoutKey": "credits_500"
+  },
+  {
+    "credits": 1200,
+    "price": 50,
+    "bonus": 600,
+    "popular": false,
+    "checkoutKey": "credits_1200"
+  }
+]
