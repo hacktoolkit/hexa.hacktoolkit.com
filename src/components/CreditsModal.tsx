@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { STRIPE_CREDIT_URLS } from '@/config/stripe'
 import { CREDIT_TIERS } from '@/config/credits'
 
@@ -8,6 +8,8 @@ interface CreditsModalProps {
 }
 
 const CreditsModal: React.FC<CreditsModalProps> = ({ isOpen, onClose }) => {
+  const [selectedCredits, setSelectedCredits] = useState<10 | 25 | 50>(50)
+
   if (!isOpen) return null
 
   const handlePurchase = (checkoutKey: keyof typeof STRIPE_CREDIT_URLS) => {
@@ -39,65 +41,112 @@ const CreditsModal: React.FC<CreditsModalProps> = ({ isOpen, onClose }) => {
 
         {/* Credit Tiers */}
         <div className="grid md:grid-cols-3 gap-4 mb-6">
-          {CREDIT_TIERS.map((tier) => (
-            <div
-              key={tier.checkoutKey}
-              className={`relative border-2 rounded-lg p-6 transition-all ${
-                tier.popular
-                  ? 'border-electric-teal shadow-lg scale-105'
-                  : 'border-gray-200 dark:border-gray-700'
-              }`}
-            >
-              {/* Popular Badge */}
-              {tier.popular && (
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-electric-teal text-space-black px-4 py-1 rounded-full text-xs font-mono font-bold whitespace-nowrap">
-                    BEST VALUE
-                  </span>
-                </div>
-              )}
+          {CREDIT_TIERS.map((tier) => {
+            // Handle 10/25/50 toggle for the first tier
+            const is50Tier = tier.credits === 50
+            const displayCredits = is50Tier ? selectedCredits : tier.credits
+            const displayPrice = is50Tier ? (selectedCredits / 10) : tier.price
+            const displayCheckoutKey = is50Tier ? `credits_${selectedCredits}` as keyof typeof STRIPE_CREDIT_URLS : tier.checkoutKey
 
-              {/* Credits Amount */}
-              <div className="text-center mb-4">
-                <div className="text-4xl font-mono font-bold text-electric-teal mb-1">
-                  {tier.credits.toLocaleString()}
-                </div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">
-                  credits
-                </div>
-                {tier.bonus > 0 && (
-                  <div className="mt-2 text-sm text-cyber-violet font-semibold">
-                    +{tier.bonus} bonus credits!
-                  </div>
-                )}
-              </div>
-
-              {/* Price */}
-              <div className="text-center mb-4">
-                <span className="text-3xl font-bold">${tier.price}</span>
-                <span className="text-gray-500 dark:text-gray-400 ml-1 text-sm">
-                  one-time
-                </span>
-              </div>
-
-              {/* Value indicator */}
-              <div className="text-center text-xs text-gray-500 dark:text-gray-400 mb-4">
-                ${(tier.price / tier.credits * 100).toFixed(1)}¢ per credit
-              </div>
-
-              {/* Purchase Button */}
-              <button
-                onClick={() => handlePurchase(tier.checkoutKey)}
-                className={`w-full py-3 rounded-lg font-mono font-semibold transition-colors ${
+            return (
+              <div
+                key={tier.checkoutKey}
+                className={`relative border-2 rounded-lg p-6 transition-all ${
                   tier.popular
-                    ? 'bg-electric-teal text-space-black hover:bg-cyber-violet hover:text-white'
-                    : 'bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-electric-teal hover:text-space-black'
+                    ? 'border-electric-teal shadow-lg scale-105'
+                    : 'border-gray-200 dark:border-gray-700'
                 }`}
               >
-                Buy Now
-              </button>
-            </div>
-          ))}
+                {/* Popular Badge */}
+                {tier.popular && (
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                    <span className="bg-electric-teal text-space-black px-4 py-1 rounded-full text-xs font-mono font-bold whitespace-nowrap">
+                      BEST VALUE
+                    </span>
+                  </div>
+                )}
+
+                {/* Credits Amount */}
+                <div className="text-center mb-4">
+                  <div className="text-4xl font-mono font-bold text-electric-teal mb-1">
+                    {displayCredits.toLocaleString()}
+                  </div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">
+                    credits
+                  </div>
+
+                  {/* 10/25/50 Toggle - positioned where bonus credits would be */}
+                  {is50Tier && (
+                    <div className="mt-2 flex justify-center">
+                      <div className="inline-flex bg-gray-200 dark:bg-gray-700 rounded-lg p-1">
+                        <button
+                          onClick={() => setSelectedCredits(10)}
+                          className={`px-3 py-1 text-xs font-mono rounded transition-colors ${
+                            selectedCredits === 10
+                              ? 'bg-electric-teal text-space-black'
+                              : 'text-gray-600 dark:text-gray-400'
+                          }`}
+                        >
+                          10
+                        </button>
+                        <button
+                          onClick={() => setSelectedCredits(25)}
+                          className={`px-3 py-1 text-xs font-mono rounded transition-colors ${
+                            selectedCredits === 25
+                              ? 'bg-electric-teal text-space-black'
+                              : 'text-gray-600 dark:text-gray-400'
+                          }`}
+                        >
+                          25
+                        </button>
+                        <button
+                          onClick={() => setSelectedCredits(50)}
+                          className={`px-3 py-1 text-xs font-mono rounded transition-colors ${
+                            selectedCredits === 50
+                              ? 'bg-electric-teal text-space-black'
+                              : 'text-gray-600 dark:text-gray-400'
+                          }`}
+                        >
+                          50
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {tier.bonus > 0 && (
+                    <div className="mt-2 text-sm text-cyber-violet font-semibold">
+                      +{tier.bonus} bonus credits!
+                    </div>
+                  )}
+                </div>
+
+                {/* Price */}
+                <div className="text-center mb-4">
+                  <span className="text-3xl font-bold">${displayPrice}</span>
+                  <span className="text-gray-500 dark:text-gray-400 ml-1 text-sm">
+                    one-time
+                  </span>
+                </div>
+
+                {/* Value indicator */}
+                <div className="text-center text-xs text-gray-500 dark:text-gray-400 mb-4">
+                  ${(displayPrice / displayCredits * 100).toFixed(1)}¢ per credit
+                </div>
+
+                {/* Purchase Button */}
+                <button
+                  onClick={() => handlePurchase(displayCheckoutKey)}
+                  className={`w-full py-3 rounded-lg font-mono font-semibold transition-colors ${
+                    tier.popular
+                      ? 'bg-electric-teal text-space-black hover:bg-cyber-violet hover:text-white'
+                      : 'bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-electric-teal hover:text-space-black'
+                  }`}
+                >
+                  Buy Now
+                </button>
+              </div>
+            )
+          })}
         </div>
 
         {/* Footer Info */}

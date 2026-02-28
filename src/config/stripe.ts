@@ -17,6 +17,8 @@ export const STRIPE_CHECKOUT_URLS = {
 } as const
 
 export const STRIPE_CREDIT_URLS = {
+  credits_10: 'https://buy.stripe.com/6oU6oJ4HN5Xd4uEfuR2Ry0a',
+  credits_25: 'https://buy.stripe.com/aFa9AV5LRgBR1isciF2Ry09',
   credits_50: 'https://buy.stripe.com/28EbJ32zF4T98KU6Yl2Ry03',
   credits_120: 'https://buy.stripe.com/4gMfZjfmrdpFe5ebeB2Ry04',
   credits_200: 'https://buy.stripe.com/9B6dRb0rx3P58KU5Uh2Ry05',
